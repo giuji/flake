@@ -24,6 +24,7 @@ let
     ../profiles/giuji.nix
     ../profiles/networking.nix
     ../profiles/git.nix
+    ../profiles/syncthing.nix
   ];
 
   commonModules = hostname:
