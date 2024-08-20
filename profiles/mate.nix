@@ -18,6 +18,9 @@
     xserver.desktopManager.mate = {
       enable = true;
       enableWaylandSession = false;
+      excludePackages = with pkgs; [
+        mate.pluma
+      ]
     };
   };
 
