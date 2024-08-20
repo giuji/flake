@@ -15,6 +15,8 @@
 
   time.timeZone = "Europe/Rome";
 
+  hardware.enableRedistributableFirmware = true;
+
   environment.systemPackages = with pkgs; [
     emacs
     firefox

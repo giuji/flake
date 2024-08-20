@@ -27,9 +27,17 @@ let
     ../profiles/syncthing.nix
   ];
 
+  amd = [
+    inputs.nixos-hardware.nixosModules.common-cpu-amd
+    inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
+    inputs.nixos-hardware.nixosModules.common-gpu-amd
+  ];
+
   commonModules = hostname:
     [
       inputs.disko.nixosModules.default
+      inputs.nixos-hardware.nixosModules.common-pc
+      inputs.nixos-hardware.nixosModules.common-pc-ssd
       {networking.hostName = "${hostname}";}
       ./commonConfig.nix
     ]
@@ -49,8 +57,8 @@ in
 
 {
 
-  thinky = mkHost { hostname = "thinky"; };
+  thinky = mkHost { hostname = "thinky"; extraModules = [ inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t430 ]; };
     
-  dippie = mkHost { hostname = "dippie"; extraModules = [ ../profiles/gaming.nix ]; };
+  dippie = mkHost { hostname = "dippie"; extraModules = ([ ../profiles/gaming.nix ] ++ amd); };
 
 }
