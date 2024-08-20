@@ -37,5 +37,11 @@
       networkConfig.DHCP = "yes";
     };
   };
+
+  networking.firewall = {
+    enable = true;
+    allowPing = true;
+    extraCommands = "iptables -A INPUT -i lo -j ACCEPT";
+  };
     
 }
