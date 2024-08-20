@@ -18,12 +18,13 @@
     xserver.desktopManager.mate = {
       enable = true;
       enableWaylandSession = false;
-      excludePackages = with pkgs; [
-        mate.pluma
-      ]
     };
   };
 
+  environment.mate.excludePackages = with pkgs; [
+    mate.pluma
+  ];
+  
   services.pipewire = {
     enable = true;
     alsa.enable = true;
