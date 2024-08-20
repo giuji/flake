@@ -1,3 +1,4 @@
 [
-  ./configuration.nix
+  ./hadware-configuration.nix
+  ./disko-config.nix
 ]
