@@ -29,16 +29,8 @@ let
   commonModules = hostname:
     [
       inputs.disko.nixosModules.default
-      {
-        i18n.defaultLocale = "en_US.UTF-8";
-        networking.hostName = "${hostname}";
-        nixpkgs.config.allowUnfree = true;
-        nix.settings.experimental-features = ["nix-command" "flakes"];
-        boot.loader.systemd-boot.enable = true;
-        boot.loader.efi.canTouchEfiVariables = true;
-        time.timeZone = "Europe/Rome";
-	      boot.loader.efi.efiSysMountPoint = lib.mkForce inputs.self.nixosConfigurations."${hostname}".config.disko.devices.disk.main.content.partitions.ESP.content.mountpoint;
-      }
+      {networking.hostName = "${hostname}";}
+      ./commonConfig.nix
     ]
     ++ commonProfiles
     ++ (import ./${hostname})
