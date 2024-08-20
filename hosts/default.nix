@@ -23,6 +23,7 @@ let
     ../profiles/mate.nix
     ../profiles/giuji.nix
     ../profiles/networking.nix
+    ../profiles/git.nix
   ];
 
   commonModules = hostname:

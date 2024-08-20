@@ -24,19 +24,6 @@
     createHome = true;
   };
 
-  home-manager.users.giuji = {
-    programs.git = {
-      enable = true;
-      userEmail = "64275280+giuji@users.noreply.github.com";
-      userName = "giuji";
-      extraConfig = {
-        core = {
-          editor = "emacs";
-        };
-      };
-    };
-  };
-
   security.sudo.enable = false;
   security.doas = {
     enable = true;
