@@ -22,6 +22,7 @@ let
   commonProfiles = [
     ../profiles/mate.nix
     ../profiles/giuji.nix
+    ../profiles/fish.nix
     ../profiles/networking.nix
     ../profiles/git.nix
     ../profiles/mpv.nix

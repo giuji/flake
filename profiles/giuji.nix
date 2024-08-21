@@ -2,19 +2,7 @@
 
 {
 
-  programs.fish = {
-    enable = true;
-    loginShellInit = ''
-      function fish_prompt
-        echo -n (set_color green) (prompt_pwd)(set_color normal) '> '
-      end
-      fish_add_path -a ~/.local/bin/ ~/.local/appimage
-    '';
-    shellAliases = {
-      daos = "doas";
-      sudo = "doas";
-    };
-  };
+  programs.fish.enable = true;
 
   users.users.giuji = {
     isNormalUser = true;
@@ -32,6 +20,11 @@
       keepEnv = true;
       persist = true;
     }];
+  };
+
+  environment.shellAliases = {
+    daos = "doas";
+    sudo = "doas";
   };
   
 }
