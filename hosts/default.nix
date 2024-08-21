@@ -59,19 +59,28 @@ in
 
 {
 
-  thinky = mkHost {
-    hostname = "thinky";
+  tweed = mkHost {
+    hostname = "tweed";
     extraModules = [
       inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t430
     ];
   };
     
-  dippie = mkHost {
-    hostname = "dippie";
+  lambswool = mkHost {
+    hostname = "lambswool";
     extraModules = ([
       ../profiles/gaming.nix
     ]
     ++ amd);
   };
 
+  velvet = mkHost {
+    hostname = "velvet";
+    extraModules = ([
+      inputs.nixos-hardware.nixosModules.common-pc-laptop
+    ]
+    ++ amd);
+  };
+  
 }
+
