@@ -104,6 +104,14 @@
       tile-to-side-e = "<Mod4>f";
       tile-to-side-w = "<Mod4>b";
     };
+    "org/mate/marco/global-keybindings" = {
+      panel-run-dialog = "<Mod4>d";
+      run-command-terminal = "<Mod4>Return";
+      switch-to-workspace-1 = "<Mod4>1";
+      switch-to-workspace-2 = "<Mod4>2";
+      switch-to-workspace-3 = "<Mod4>3";
+      switch-to-workspace-4 = "<Mod4>4";
+    };
   };
 
 }
