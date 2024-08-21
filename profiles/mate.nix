@@ -92,4 +92,18 @@
     '';
   };
 
+  home-manager.users.giuji.dconf.settings = {
+    "org/mate/marco/window-keybindings" = {
+      close = "<Mod4>q";
+      move-to-side-n = "<Mod4>p";
+      move-to-side-s = "<Mod4>n";
+      move-to-workspace-1 = "<Shift><Mod4>exclam";
+      move-to-workspace-2 = "<Shift><Mod4>at";
+      move-to-workspace-3 = "<Shift><Mod4>numbersign";
+      move-to-workspace-4 = "<Shift><Mod4>dollar";
+      tile-to-side-e = "<Mod4>f";
+      tile-to-side-w = "<Mod4>b";
+    };
+  };
+
 }
