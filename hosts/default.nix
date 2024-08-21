@@ -24,6 +24,7 @@ let
     ../profiles/giuji.nix
     ../profiles/networking.nix
     ../profiles/git.nix
+    ../profiles/mpv.nix
     ../profiles/syncthing.nix
   ];
 
