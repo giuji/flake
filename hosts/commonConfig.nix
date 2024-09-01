@@ -23,6 +23,7 @@
     spotify
     nheko
     keepassxc
+    qbittorrent
   ];
 
   services.tlp.settings = lib.mkIf config.services.tlp.enable {
