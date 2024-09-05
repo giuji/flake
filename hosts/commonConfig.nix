@@ -24,6 +24,9 @@
     nheko
     keepassxc
     qbittorrent
+    racket
+    gcc
+    ghostscript
   ];
 
   services.tlp.settings = lib.mkIf config.services.tlp.enable {
