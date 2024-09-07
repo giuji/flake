@@ -21,12 +21,13 @@
     emacs
     firefox
     spotify
-    nheko
+    #unstable.nheko
     keepassxc
     qbittorrent
     racket
     gcc
     ghostscript
+    anki-bin
   ];
 
   services.tlp.settings = lib.mkIf config.services.tlp.enable {
