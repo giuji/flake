@@ -19,14 +19,16 @@
 
   environment.systemPackages = with pkgs; [
     emacs
+    element-desktop
     firefox
     spotify
-    #unstable.nheko
+    unzip
     keepassxc
     qbittorrent
     racket
     gcc
     ghostscript
+    clang-tools
     anki-bin
   ];
 

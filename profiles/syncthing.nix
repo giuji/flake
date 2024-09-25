@@ -10,6 +10,7 @@
     user = "giuji";
     dataDir = "/home/giuji/Sync";
     configDir = "/home/giuji/.config/syncthing";
+    overrideDevices = false;
     settings = {
       options = {
         relaysEnabled = false;
