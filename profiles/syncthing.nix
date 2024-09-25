@@ -11,6 +11,7 @@
     dataDir = "/home/giuji/Sync";
     configDir = "/home/giuji/.config/syncthing";
     overrideDevices = false;
+    overrideFolders = false;
     settings = {
       options = {
         relaysEnabled = false;
