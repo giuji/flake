@@ -81,6 +81,7 @@ in
     hostname = "lambswool";
     extraModules = ([
       ../profiles/gaming.nix
+      ../profiles/dlna.nix
     ]
     ++ amd);
   };
