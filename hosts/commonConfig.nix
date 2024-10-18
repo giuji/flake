@@ -1,4 +1,18 @@
 { config, pkgs, lib, ... }:
+let
+  
+  # emacs org stuff, took this from https://nixos.wiki/wiki/TexLive
+  tex = (pkgs.texlive.combine {
+    inherit (pkgs.texlive) scheme-basic
+      dvisvgm dvipng # for preview and export as html
+      wrapfig amsmath ulem hyperref capt-of;
+  });
+
+  # add this to your emacs init file
+  #(setq org-latex-compiler "lualatex")
+  #(setq org-preview-latex-default-process 'dvisvgm)
+  
+in
 
 {
 
@@ -20,6 +34,7 @@
   environment.systemPackages = with pkgs; [
     emacs
     element-desktop
+    tex # look at the let binding
     firefox
     spotify
     unzip
@@ -27,6 +42,7 @@
     qbittorrent
     racket
     gcc
+    ghc
     ghostscript
     clang-tools
     anki-bin
