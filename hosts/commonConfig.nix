@@ -15,6 +15,11 @@ let
 in
 
 {
+	
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
 
   i18n.defaultLocale = "en_US.UTF-8";
   
@@ -32,6 +37,7 @@ in
   hardware.enableRedistributableFirmware = true;
 
   environment.systemPackages = with pkgs; [
+    nicotine-plus
     emacs
     element-desktop
     tex # look at the let binding
@@ -41,10 +47,7 @@ in
     keepassxc
     qbittorrent
     racket
-    gcc
-    ghc
     ghostscript
-    clang-tools
     anki-bin
   ];
 
