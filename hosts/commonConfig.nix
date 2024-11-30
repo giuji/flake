@@ -45,7 +45,7 @@ in
     spotify
     unzip
     keepassxc
-    qbittorrent
+    deluge-gtk
     racket
     ghostscript
     anki-bin
