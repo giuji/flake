@@ -21,8 +21,15 @@ in
     nix-direnv.enable = true;
   };
 
-  i18n.defaultLocale = "en_US.UTF-8";
-  
+  i18n = {
+    supportedLocales = [
+      "en_US.UTF-8/UTF-8"
+      "it_IT.UTF-8/UTF-8"
+      "ja_JP.UTF-8/UTF-8"
+    ];
+    defaultLocale = "en_US.UTF-8";
+  };
+    
   nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = ["nix-command" "flakes"];
   
