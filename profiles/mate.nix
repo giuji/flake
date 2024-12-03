@@ -1,5 +1,15 @@
 { config, lib, pkgs, ... }:
+let
 
+  default-font = "Noto Sans";
+  default-serif = "Noto Serif";
+  default-mono = "Cascadia Code";
+  fonts-packages = with pkgs; [
+    cascadia-code
+    noto-fonts
+  ];
+
+in
 {
 
   services = {
@@ -32,10 +42,25 @@
     pulse.enable = true;
   };
 
-  environment.systemPackages = with pkgs; [
-    pkgs.inter
-    pkgs.cascadia-code
-  ];
+  fonts = {
+    packages = fonts-packages ++ (with pkgs; [
+      noto-fonts-cjk-sans
+      noto-fonts-cjk-serif
+      noto-fonts-color-emoji
+    ]);
+    enableDefaultPackages = true;
+    fontDir.enable = true;
+    fontconfig = {
+      enable = true;
+      subpixel.rgba = "rgb";
+      defaultFonts = {
+        emoji = [ "Noto Color Emoji" ];
+        monospace = [ default-mono ];
+        sansSerif = [ default-font ];
+        serif = [ default-serif ];
+      };
+    };
+  };
 
   home-manager.users.giuji = {
     gtk = {
@@ -53,8 +78,7 @@
 	      package = pkgs.mate.mate-icon-theme;
       };
       font = {
-        name = "Inter Regular";
-        package = pkgs.inter;
+        name = default-font; #+ " Regular";
       };
     };
     qt = {
@@ -64,28 +88,6 @@
     };
   };
 
-  # home-manager.users.giuji.services.picom =
-  #   let
-  #     excluded = [
-  #       "window_type *= 'menu'"
-  #       "window_type *= 'dropdown_menu'"
-  #       "window_type *= 'popup_menu'"
-  #       "window_type *= 'utility'"
-  #       "window_type *= 'tooltip'"
-  #     ];
-  #   in {
-  #     enable = true;
-  #     backend = "egl";
-  #     fade = true;
-  #     fadeDelta = 5;
-  #     fadeExclude = excluded;
-  #     shadow = true;
-  #     #shadowOffsets = [ -18 -18 ];
-  #     shadowOpacity = 0.65;
-  #     shadowExclude = excluded;
-  #     vSync = true;
-  # };
-  
   home-manager.users.giuji.home.file.".xinitrc" = {
     enable = true;
     text = ''
@@ -112,6 +114,24 @@
       switch-to-workspace-2 = "<Mod4>2";
       switch-to-workspace-3 = "<Mod4>3";
       switch-to-workspace-4 = "<Mod4>4";
+    };
+    "org/mate/caja/desktop" = {
+      font = default-font + " 10";
+    };
+    "org/mate/desktop/interface" = {
+      document-font-name = default-font + " 10";
+      font-name = default-font + " 10";
+      gtk-theme = config.home-manager.users.giuji.gtk.theme.name;
+      icon-theme = config.home-manager.users.giuji.gtk.iconTheme.name;
+      monospace-font-name = default-mono + " 10";
+    };
+    "org/mate/marco/general" = {
+      theme = config.home-manager.users.giuji.gtk.theme.name;
+      titlebar-font = default-font + " Bold 10";
+      mouse-button-modifier = "<Super>";
+    };
+    "org/mate/notification-daemon" = {
+      theme = "slider";
     };
     #nord theme
     "org/mate/terminal/profiles/default" = {
