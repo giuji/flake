@@ -21,6 +21,11 @@ in
     nix-direnv.enable = true;
   };
 
+  services.btrfs.autoScrub = {
+    enable = true;
+    interval = "weekly";
+  };
+
   i18n = {
     supportedLocales = [
       "en_US.UTF-8/UTF-8"
