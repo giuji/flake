@@ -13,17 +13,6 @@ let
     }
   ];
 
-  # this requires a flake input named nixpkgs-unstable
-  # nixpkgs-unstable = [{
-  #   nixpkgs.overlays = [
-  #     (final: prev: {
-  #       unstable = import inputs.nixpkgs-unstable {
-  #         system = prev.system;
-  #       };
-  #     })
-  #   ];
-  # }];
-
   stateVersion = version:
     [{
       home-manager.users.giuji.home.stateVersion = version;
@@ -59,7 +48,6 @@ let
     ++ commonProfiles
     ++ (import ./${hostname})
     ++ homeManagerModuleConfig
-    # ++ nixpkgs-unstable
     ++ (stateVersion "24.05");
 
   mkHost = { hostname, extraModules ? [] }:
