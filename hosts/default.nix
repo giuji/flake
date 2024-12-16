@@ -9,6 +9,10 @@ let
     { home-manager = {
         useGlobalPkgs = true;
         useUserPackages = false;
+        users.giuji = {
+          imports = [ inputs.nix-colors.homeManagerModules.default ];
+          colorScheme = inputs.nix-colors.colorSchemes.black-metal-venom;
+        };
       };
     }
   ];
@@ -31,7 +35,7 @@ let
     }];
 
   commonProfiles = [
-    ../profiles/mate.nix
+    ../profiles/sway.nix
     ../profiles/giuji.nix
     ../profiles/fish.nix
     ../profiles/networking.nix
