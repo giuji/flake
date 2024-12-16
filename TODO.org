@@ -1,0 +1,10 @@
+* TODO refactor commonConfig
+** TODO emacs profile
+
+
+* TODO impermanence
+
+* TODO keepassxc home-manager
+write a keepassxc home-manager module (im never gonna do this)
+
+* TODO add ZFS support
