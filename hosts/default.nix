@@ -9,10 +9,6 @@ let
     { home-manager = {
         useGlobalPkgs = true;
         useUserPackages = false;
-        users.giuji = {
-          imports = [ inputs.nix-colors.homeManagerModules.default ];
-          colorScheme = inputs.nix-colors.colorSchemes.black-metal-venom;
-        };
       };
     }
   ];

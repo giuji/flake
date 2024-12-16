@@ -13,9 +13,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware";
-    nix-colors = {
-      url = "github:misterio77/nix-colors";
-    };
   };
 
   outputs = { self, ... }@inputs: 

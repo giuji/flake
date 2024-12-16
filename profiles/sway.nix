@@ -12,7 +12,16 @@ let
     noto-fonts
   ];
   
-  colorScheme = config.home-manager.users.giuji.colorScheme.palette;
+  # inspired by base16-black-metal-scheme
+  palette = rec {
+    bg = "000000";
+    bg-dim = "333333";
+    fg = "f8f7f2";
+    fg-dim = "a0a0a0";
+    blue = "5f8787";
+    red = "79241f";
+    accent = blue;
+  };
 
 in
 {
@@ -116,8 +125,8 @@ in
         pad = "6x6";
       };
       colors = {
-        background = colorScheme.base00;
-        foreground = colorScheme.base05;
+        background = palette.bg;
+        foreground = palette.fg;
       };
     };
   };
@@ -125,8 +134,8 @@ in
   home-manager.users.giuji.services.mako = {
     enable = true;
     anchor = "top-right";
-    backgroundColor = "#${colorScheme.base00}";
-    borderColor = "#${colorScheme.base06}";
+    backgroundColor = "#${palette.bg}";
+    borderColor = "#${palette.fg-dim}";
     borderSize = 1;
     defaultTimeout = 10000;
     font = default-mono + " 10";
@@ -134,32 +143,32 @@ in
     iconPath = "${pkgs.morewaita-icon-theme}/share/icons/MoreWaita";
     margin = "22";
     padding = "10";
-    textColor = "#${colorScheme.base05}";
+    textColor = "#${palette.fg}";
     extraConfig = ''
       [urgency=critical]
-      border-color=#${colorScheme.base08}
+      border-color=#${palette.accent}
     '';
   };
 
   home-manager.users.giuji.xdg.configFile."sway/menu".text = ''
-    bemenu-run -p \"run\" \
+    bemenu-run -p run \
        -b \
        -H 30 \
 	     --fn "${default-mono} 10" \
-	     --tb "#${colorScheme.base00}" \
-	     --fb "#${colorScheme.base00}" \
-	     --nb "#${colorScheme.base00}" \
-	     --hb "#${colorScheme.base00}" \
-	     --sb "#${colorScheme.base00}" \
-	     --ab "#${colorScheme.base00}" \
-	     --tf "#${colorScheme.base08}" \
-	     --ff "#${colorScheme.base05}" \
-	     --nf "#${colorScheme.base05}" \
-	     --hf "#${colorScheme.base08}" \
-	     --sf "#${colorScheme.base05}" \
-	     --af "#${colorScheme.base05}" \
-	     --cf "#${colorScheme.base00}" \
-	     --cb "#${colorScheme.base00}"
+	     --tb "#${palette.bg}" \
+	     --fb "#${palette.bg}" \
+	     --nb "#${palette.bg}" \
+	     --hb "#${palette.bg}" \
+	     --sb "#${palette.bg}" \
+	     --ab "#${palette.bg}" \
+	     --tf "#${palette.accent}" \
+	     --ff "#${palette.fg}" \
+	     --nf "#${palette.fg}" \
+	     --hf "#${palette.accent}" \
+	     --sf "#${palette.fg}" \
+	     --af "#${palette.fg}" \
+	     --cf "#${palette.bg}" \
+	     --cb "#${palette.bg}"
   '';
 
   home-manager.users.giuji.services.swayidle = {
@@ -186,9 +195,9 @@ in
     enableDefault = false;
     general = {
       colors = true;
-      color_good = "#${colorScheme.base08}";
-      color_degraded = "#${colorScheme.base0B}";
-      color_bad = "#${colorScheme.base0D}";
+      color_good = "#${palette.fg}";
+      color_degraded = "#${palette.fg-dim}";
+      color_bad = "#${palette.accent}";
       output_format = "i3bar";
     };
     modules = {
@@ -239,18 +248,18 @@ in
       bars = [{
         position = "bottom";
         colors = rec {
-          background = colorScheme.base00;
-          statusline = colorScheme.base05;
+          background = palette.bg;
+          statusline = palette.fg;
           focusedWorkspace = {
             background = background;
             border = background;
             text = statusline;
           };
-          activeWorkspace = focusedWorkspace // { text = colorScheme.base06; };
-          urgentWorkspace = focusedWorkspace // { text = colorScheme.base08; };
+          activeWorkspace = focusedWorkspace // { text = palette.fg-dim; };
+          urgentWorkspace = focusedWorkspace // { text = palette.accent; };
           inactiveWorkspace = activeWorkspace;
           bindingMode = urgentWorkspace;
-          separator = colorScheme.base06;
+          separator = palette.fg-dim;
         };
         trayPadding = 6;
         statusCommand = "i3status";
@@ -263,22 +272,22 @@ in
       }];
 
       colors = rec {
-        background = colorScheme.base00;
+        background = palette.bg;
         focused = {
           background = background;
-          border = colorScheme.base05;
-          childBorder = colorScheme.base05;
-          indicator = colorScheme.base05;
-          text = colorScheme.base05;
+          border = palette.fg;
+          childBorder = palette.fg;
+          indicator = palette.fg;
+          text = palette.fg;
         };
         unfocused = {
           background = background;
-          border = colorScheme.base06;
-          childBorder = colorScheme.base06;
-          indicator = colorScheme.base06;
-          text = colorScheme.base06;
+          border = palette.fg-dim;
+          childBorder = palette.fg-dim;
+          indicator = palette.fg-dim;
+          text = palette.fg-dim;
         };
-        urgent = unfocused // { text = colorScheme.base08; };
+        urgent = unfocused // { text = palette.accent; };
         focusedInactive = unfocused;
       };
 
@@ -301,7 +310,7 @@ in
 
       output = {
         "*" = {
-          bg = "#${colorScheme.base03} solid_color";
+          bg = "#${palette.bg-dim} solid_color";
         };
         HDMI-A-1 = {
           mode = "1920x1080@60Hz";
