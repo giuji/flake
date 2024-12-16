@@ -17,9 +17,6 @@ let
 in
 {
 
-  # use radv
-  environment.variables.AMD_VULKAN_IDC = "RADV";
-
   services.pipewire = {
     enable = true;
     audio.enable = true;

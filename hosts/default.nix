@@ -48,6 +48,8 @@ let
     inputs.nixos-hardware.nixosModules.common-cpu-amd
     inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
     inputs.nixos-hardware.nixosModules.common-gpu-amd
+    # use radv
+    { environment.variables.AMD_VULKAN_IDC = "RADV"; }
   ];
 
   commonModules = hostname:
