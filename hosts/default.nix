@@ -13,21 +13,20 @@ let
     }
   ];
 
-  stateVersion = version:
-    [{
-      home-manager.users.giuji.home.stateVersion = version;
-      system.stateVersion = version;
-    }];
-
   commonProfiles = [
-    ../profiles/sway.nix
-    ../profiles/giuji.nix
-    ../profiles/fish.nix
     ../profiles/networking.nix
-    ../profiles/git.nix
-    ../profiles/mpv.nix
     ../profiles/syncthing.nix
   ];
+
+  desktopProfiles = [
+    ../profiles/git.nix
+    ../profiles/fish.nix
+    ../profiles/mpv.nix
+    ../profiles/giuji.nix
+    ../profiles/sway.nix
+    { home-manager.users.giuji.home.stateVersion = "24.05"; }
+  ]
+  ++ homeManagerModuleConfig;
 
   amd = [
     inputs.nixos-hardware.nixosModules.common-cpu-amd
@@ -37,24 +36,24 @@ let
     { environment.variables.AMD_VULKAN_IDC = "RADV"; }
   ];
 
-  commonModules = hostname:
-    [
-      inputs.disko.nixosModules.default
-      inputs.nixos-hardware.nixosModules.common-pc
-      inputs.nixos-hardware.nixosModules.common-pc-ssd
-      {networking.hostName = "${hostname}";}
-      ./commonConfig.nix
-    ]
-    ++ commonProfiles
-    ++ (import ./${hostname})
-    ++ homeManagerModuleConfig
-    ++ (stateVersion "24.05");
-
-  mkHost = { hostname, extraModules ? [] }:
+  mkHost = { hostname, isDesktop, extraModules ? [] }:
     lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = inputs;
-      modules = (commonModules hostname) ++ extraModules;
+      modules = [
+        inputs.disko.nixosModules.default
+        inputs.nixos-hardware.nixosModules.common-pc
+        inputs.nixos-hardware.nixosModules.common-pc-ssd
+        ./commonConfig.nix
+        {
+          networking.hostName = "${hostname}";
+          system.stateVersion = "24.05";
+        }
+      ]
+      ++ (import ./${hostname})
+      ++ commonProfiles
+      ++ extraModules
+      ++ (if isDesktop then desktopProfiles else []);
     };
   
 in
@@ -63,6 +62,7 @@ in
 
   tweed = mkHost {
     hostname = "tweed";
+    isDesktop = true;
     extraModules = [
       inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t430
     ];
@@ -70,6 +70,7 @@ in
     
   lambswool = mkHost {
     hostname = "lambswool";
+    isDesktop = true;
     extraModules = ([
       ../profiles/gaming.nix
       ../profiles/dlna.nix
@@ -79,6 +80,7 @@ in
 
   velvet = mkHost {
     hostname = "velvet";
+    isDesktop = true;
     extraModules = ([
       inputs.nixos-hardware.nixosModules.common-pc-laptop
     ]
