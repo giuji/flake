@@ -24,6 +24,7 @@ let
     ../profiles/mpv.nix
     ../profiles/giuji.nix
     ../profiles/sway.nix
+    ../profiles/emacs.nix
     { home-manager.users.giuji.home.stateVersion = "24.05"; }
   ]
   ++ homeManagerModuleConfig;

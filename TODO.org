@@ -1,5 +1,5 @@
 * TODO refactor commonConfig
-** TODO emacs profile
+** DONE emacs profile
 
 
 * TODO impermanence
