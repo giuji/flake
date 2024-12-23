@@ -26,6 +26,8 @@ let
 in
 {
 
+  services.udisks2.enable = true;
+
   services.pipewire = {
     enable = true;
     audio.enable = true;
@@ -83,32 +85,6 @@ in
       };
       platformTheme.name = "adwaita";
     };
-  };
-
-  services.udisks2.enable = true;
-
-  programs.sway = {
-    enable = true;
-    extraPackages = with pkgs; [
-      brightnessctl
-      foot
-      swayidle
-      bemenu
-      sway-contrib.grimshot
-      qt5.qtwayland ];
-    extraSessionCommands = ''
-      export MOZ_ENABLE_WAYLAND=1
-      export QT_QPA_PLATFORM=wayland-egl
-      export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
-      export SDL_VIDEODRIVER=wayland
-      export _JAVA_AWT_WM_NONREPARENTING=1
-      export ELECTRON_OZONE_PLATFORM_HINT=wayland
-    '';
-    wrapperFeatures = {
-      base = true;
-      gtk = true;
-    };
-    xwayland.enable = true;
   };
 
   home-manager.users.giuji.xdg.configFile."electron-flags.conf".text = ''
@@ -231,12 +207,32 @@ in
     };
   };
 
+  home-manager.users.giuji.home.packages = with pkgs; [
+      brightnessctl
+      foot
+      swayidle
+      bemenu
+      sway-contrib.grimshot
+      qt5.qtwayland
+  ];
+
   home-manager.users.giuji.wayland.windowManager.sway = {
     enable = true;
-    # use system-wide sway package
-    package = null; 
     systemd.enable = true;
-
+    xwayland = true;
+    extraSessionCommands = ''
+      export MOZ_ENABLE_WAYLAND=1
+      export QT_QPA_PLATFORM=wayland-egl
+      export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
+      export SDL_VIDEODRIVER=wayland
+      export _JAVA_AWT_WM_NONREPARENTING=1
+      export ELECTRON_OZONE_PLATFORM_HINT=wayland
+    '';
+    wrapperFeatures = {
+      base = true;
+      gtk = true;
+    };
+    
     config = rec {
       assigns = {
         "2" = [

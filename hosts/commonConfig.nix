@@ -2,6 +2,7 @@
 
 {
 
+  # this assumes every host uses btrfs, which might not be true
   services.btrfs.autoScrub = {
     enable = true;
     interval = "weekly";
@@ -28,19 +29,6 @@
   time.timeZone = "Europe/Rome";
 
   hardware.enableRedistributableFirmware = true;
-
-  environment.systemPackages = with pkgs; [
-    nicotine-plus
-    element-desktop
-    firefox
-    spotify
-    unzip
-    keepassxc
-    deluge-gtk
-    racket
-    ghostscript
-    anki-bin
-  ];
 
   services.tlp.settings = lib.mkIf config.services.tlp.enable {
     CPU_BOOST_ON_AC = 1;

@@ -26,5 +26,18 @@
     daos = "doas";
     sudo = "doas";
   };
+
+  home-manager.users.giuji.home.packages = with pkgs; [
+    nicotine-plus
+    element-desktop
+    firefox
+    spotify
+    unzip
+    keepassxc
+    deluge-gtk
+    racket
+    ghostscript
+    anki-bin
+  ];
   
 }
