@@ -87,6 +87,12 @@ in
     ]
     ++ amd);
   };
+
+  corduroy = mkHost {
+    hostname = "corduroy";
+    isDesktop = false;
+    extraModules = [];
+    #++ amd;
+  };
   
 }
-
