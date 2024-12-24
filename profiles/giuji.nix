@@ -6,7 +6,7 @@
 
   users.users.giuji = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ];
+    extraGroups = [ "wheel" "syncthing" ];
     initialPassword = "qwerty";
     shell = pkgs.fish;
     createHome = true;
