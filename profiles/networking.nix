@@ -16,7 +16,7 @@
         NameResolvingScheme = "systemd";
       };
       General = {
-        EnableNetworkConfiguration = true;
+        EnableNetworkConfiguration = false;
         UseDefaultInterface = true;
         AddressRandomization = "once";
       };
@@ -31,10 +31,21 @@
 
   #DISABLED, USING IWD BUILT IN
   systemd.network = {
-    enable = false;
-    networks."wlan0" = {
-      matchConfig.Name = "wlan0";
+    enable = true;
+    wait-online.anyInterface = true;
+    networks."20-lan" = {
+      matchConfig = {
+        Type = "ether";
+        Kind = "!*";
+      };
       networkConfig.DHCP = "yes";
+    };
+    networks."25-wlan" = {
+      matchConfig.Type = "wlan";
+      networkConfig = {
+        DHCP = "yes";
+        IgnoreCarrierLoss = "3s";
+      };
     };
   };
 
