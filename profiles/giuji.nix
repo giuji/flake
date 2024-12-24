@@ -39,5 +39,9 @@
     ghostscript
     anki-bin
   ];
+
+  home-manager.users.giuji.services.ssh-agent = {
+    enable = true;
+  };
   
 }
