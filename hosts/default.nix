@@ -16,13 +16,13 @@ let
   commonProfiles = [
     ../profiles/networking.nix
     ../profiles/syncthing.nix
+    ../profiles/giuji.nix    
   ];
 
   desktopProfiles = [
     ../profiles/git.nix
     ../profiles/fish.nix
     ../profiles/mpv.nix
-    ../profiles/giuji.nix
     ../profiles/sway.nix
     ../profiles/emacs.nix
     { home-manager.users.giuji.home.stateVersion = "24.05"; }
@@ -37,16 +37,31 @@ let
     { environment.variables.AMD_VULKAN_IDC = "RADV"; }
   ];
 
-  mkHost = { hostname, isDesktop, extraModules ? [] }:
+  # i hate nix it would make more sense to pass this to the various
+  # submodules as an argument rather than making a module and
+  # referencing its value idk
+  # isDesktopModule = ({ lib, ... }: {
+  #   options.isDesktop = lib.mkOption {
+  #     type = lib.types.bool;
+  #     default = false;
+  #   };
+  # });
+
+  mkHost = { hostname, isDesktop ? false, extraModules ? [] }:
     lib.nixosSystem {
       system = "x86_64-linux";
-      specialArgs = inputs;
+      specialArgs =  { inherit inputs isDesktop; };
       modules = [
         inputs.disko.nixosModules.default
         inputs.nixos-hardware.nixosModules.common-pc
         inputs.nixos-hardware.nixosModules.common-pc-ssd
+#        hostVarsModule
         ./commonConfig.nix
         {
+           # defining an isDesktop option would be better since passing
+           # it as arguments dont get type checked but i much prefer
+           # doing it this way idk
+#          _module.args = { inherit isDesktop; };
           networking.hostName = "${hostname}";
           system.stateVersion = "24.05";
         }
@@ -91,7 +106,9 @@ in
   corduroy = mkHost {
     hostname = "corduroy";
     isDesktop = false;
-    extraModules = [];
+    extraModules = [
+      ../profiles/steam.nix
+    ];
     #++ amd;
   };
   
