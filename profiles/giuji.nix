@@ -25,9 +25,10 @@
     }];
   };
 
+  environment.systemPackages = [ pkgs.doas-sudo-shim ];
+
   environment.shellAliases = {
     daos = "doas";
-    sudo = "doas";
   };
 
 } // (
