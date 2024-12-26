@@ -1,22 +1,15 @@
 { isDesktop, config, lib, pkgs, ... }:
-let
 
-  # if is fine here, this shouldnt cause an infinite recursion
-  syncthingGroup = if config.services.syncthing.enable
-                   then ["syncthing"]
-                   else [];
-  
-
-  grps = [ "wheel" ] ++ syncthingGroup ++ dlnaGroup;
-
-in
 {
 
   programs.fish.enable = true;
 
   users.users.giuji = {
     isNormalUser = true;
-    extraGroups = grps;
+    extraGroups = [
+      "wheel"
+    ]
+    ++ (lib.optional config.services.syncthing.enable "syncthing");
     initialPassword = "qwerty";
     shell = pkgs.fish;
     createHome = true;
