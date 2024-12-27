@@ -100,6 +100,7 @@ in
     isDesktop = false;
     extraModules = [
       ../profiles/steam.nix
+      ../profiles/calibre-web.nix
     ];
     #++ amd;
   };
