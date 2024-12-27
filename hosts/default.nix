@@ -80,7 +80,7 @@ in
     hostname = "lambswool";
     isDesktop = true;
     extraModules = ([
-      ../profiles/gaming.nix
+      ../profiles/steam.nix
       ../profiles/dlna.nix
     ]
     ++ amd);
