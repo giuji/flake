@@ -27,18 +27,24 @@
     sudo = "doas";
   };
 
-  home-manager.users.giuji.home.packages = with pkgs; [
-    nicotine-plus
-    element-desktop
-    firefox
-    spotify
-    unzip
-    keepassxc
-    deluge-gtk
-    racket
-    ghostscript
-    anki-bin
-  ];
+  home-manager.users.giuji.home.packages = let
+
+    spotifywl = pkgs.writeShellScriptBin "spotify" ''
+      exec ${pkgs.spotify}/bin/spotify --enable-features=UseOzonePlatform --ozone-platform=wayland
+    '';
+    
+    in with pkgs; [
+      nicotine-plus
+      element-desktop
+      firefox
+      spotifywl
+      unzip
+      keepassxc
+      deluge-gtk
+      racket
+      ghostscript
+      anki-bin
+    ];
 
   home-manager.users.giuji.services.ssh-agent = {
     enable = true;
