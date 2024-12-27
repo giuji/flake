@@ -11,6 +11,18 @@
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
+  fileSystems."/Archive" = {
+    device = "/dev/disk/by-uuid/a93ef6e6-660d-496c-a1cc-316f235a4726";
+    fsType = "btrfs";
+    options = [
+      "nosuid"
+      "noexec"
+      "nodev"
+      "noatime"
+      "nossd"
+    ];
+  };
+
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction
