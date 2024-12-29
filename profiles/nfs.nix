@@ -1,18 +1,24 @@
 { isDesktop, config, lib, pkgs, ... }:
+let
 
+  server-ip = "192.168.1.136";
+  server-port = 2049;
+
+in
 if isDesktop
 then {
 
   boot.supportedFilesystems = [ "nfs" ];
 
   fileSystems."/shared" = {
-    device = "192.168.1.136:/share";
+    device = "${server-ip}:/share";
     fsType = "nfs4";
-    options = [ "x-systemd.automount" "noauto" "nfsvers=4.2" "sync" ];
+    options = let p = toString server-port;
+      in [ "x-systemd.automount" "noauto"  "x-systemd.idle-timeout=600" "sync" "nfsvers=4.2" "port=${p}" ];
   };
-  
+
 }
-else (let nfsp = 2049; in {
+else {
 
   systemd.tmpfiles.settings = {
     "nfs-export" = {
@@ -42,7 +48,7 @@ else (let nfsp = 2049; in {
     settings.nfsd = {
       UDP = false;
       TCP = true;
-      port = nfsp;
+      port = server-port;
       vers3 = false;
       vers4 = true;
     };
@@ -51,6 +57,6 @@ else (let nfsp = 2049; in {
   # we are using nfs ver. > 4 so rpcbind is not needed
   services.rpcbind.enable = lib.mkForce false;
 
-  networking.firewall.allowedTCPPorts = [ nfsp ];
+  networking.firewall.allowedTCPPorts = [ server-port ];
 
-})
+}
