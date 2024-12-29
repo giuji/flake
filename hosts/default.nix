@@ -16,13 +16,17 @@ let
   commonProfiles = [
     ../profiles/networking.nix
     ../profiles/syncthing.nix
+    ../profiles/giuji.nix    
+  ];
+
+  serverProfiles = [
+    ../profiles/sshd
   ];
 
   desktopProfiles = [
     ../profiles/git.nix
     ../profiles/fish.nix
     ../profiles/mpv.nix
-    ../profiles/giuji.nix
     ../profiles/sway.nix
     ../profiles/emacs.nix
     { home-manager.users.giuji.home.stateVersion = "24.05"; }
@@ -37,10 +41,13 @@ let
     { environment.variables.AMD_VULKAN_IDC = "RADV"; }
   ];
 
-  mkHost = { hostname, isDesktop, extraModules ? [] }:
+  mkHost = { hostname, isDesktop ? false, extraModules ? [] }:
     lib.nixosSystem {
       system = "x86_64-linux";
-      specialArgs = inputs;
+      # defining an isDesktop option would be better since passing
+      # it as arguments dont get type checked but i much prefer
+      # doing it this way idk
+      specialArgs =  { inherit inputs isDesktop; };
       modules = [
         inputs.disko.nixosModules.default
         inputs.nixos-hardware.nixosModules.common-pc
@@ -54,7 +61,7 @@ let
       ++ (import ./${hostname})
       ++ commonProfiles
       ++ extraModules
-      ++ (if isDesktop then desktopProfiles else []);
+      ++ (if isDesktop then desktopProfiles else serverProfiles);
     };
   
 in
@@ -73,7 +80,7 @@ in
     hostname = "lambswool";
     isDesktop = true;
     extraModules = ([
-      ../profiles/gaming.nix
+      ../profiles/steam.nix
       ../profiles/dlna.nix
     ]
     ++ amd);
@@ -87,6 +94,16 @@ in
     ]
     ++ amd);
   };
+
+  corduroy = mkHost {
+    hostname = "corduroy";
+    isDesktop = false;
+    extraModules = [
+      ../profiles/steam.nix
+      ../profiles/calibre-web.nix
+      ../profiles/nfs.nix
+    ];
+    #++ amd;
+  };
   
 }
-

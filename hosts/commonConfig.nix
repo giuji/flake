@@ -8,6 +8,10 @@
     interval = "weekly";
   };
 
+  boot.initrd.postDeviceCommands = ''
+    btrfs device scan
+  '';
+
   i18n = {
     supportedLocales = [
       "en_US.UTF-8/UTF-8"

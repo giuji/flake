@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ isDesktop, config, lib, pkgs, ... }:
 
 {
 
@@ -6,7 +6,10 @@
 
   users.users.giuji = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "syncthing" ];
+    extraGroups = [
+      "wheel"
+    ]
+    ++ (lib.optional config.services.syncthing.enable "syncthing");
     initialPassword = "qwerty";
     shell = pkgs.fish;
     createHome = true;
@@ -22,32 +25,37 @@
     }];
   };
 
+  environment.systemPackages = [ pkgs.doas-sudo-shim ];
+
   environment.shellAliases = {
     daos = "doas";
-    sudo = "doas";
   };
 
-  home-manager.users.giuji.home.packages = let
+} // (
+  if isDesktop
+  then let
 
     spotifywl = pkgs.writeShellScriptBin "spotify" ''
       exec ${pkgs.spotify}/bin/spotify --enable-features=UseOzonePlatform --ozone-platform=wayland
     '';
     
-    in with pkgs; [
+    in {
+    home-manager.users.giuji.home.packages = with pkgs; [
       nicotine-plus
       element-desktop
       firefox
-      spotifywl
       unzip
       keepassxc
       deluge-gtk
       racket
       ghostscript
       anki-bin
+      spotifywl
     ];
 
-  home-manager.users.giuji.services.ssh-agent = {
-    enable = true;
-  };
-  
-}
+    home-manager.users.giuji.services.ssh-agent = {
+      enable = true;
+    };
+  }
+  else {}  
+)

@@ -1,12 +1,10 @@
-{ device ? "/dev/nvme0n1", ...}:
-
 {
 
   disko.devices = {
     disk = {
       main = {
         type = "disk";
-        inherit device;
+        device = "/dev/nvme0n1";
         content = {
           type = "gpt";
           partitions = {
@@ -35,15 +33,15 @@
                   subvolumes= {
                     "root" = {
                       mountpoint = "/";
-                      mountOptions = [ "subvol=root" "noatime" ];
+                      mountOptions = [ "subvol=root" "noatime" "discard=async" ];
                     };
                     "home" = {
                       mountpoint = "/home";
-                      mountOptions = ["subvol=home" "noatime"];
+                      mountOptions = ["subvol=home" "noatime" "discard=async" ];
                     };
                     "nix" = {
                       mountpoint = "/nix";
-                      mountOptions = [ "subvol=nix" "noatime" ];
+                      mountOptions = [ "subvol=nix" "noatime" "discard=async" ];
                     };
                     "swap" = {
                       mountpoint = "/swap";
