@@ -101,6 +101,7 @@ in
     extraModules = [
       ../profiles/steam.nix
       ../profiles/calibre-web.nix
+      ../profiles/nfs.nix
     ];
     #++ amd;
   };
