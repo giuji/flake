@@ -237,7 +237,8 @@ in
       assigns = {
         "2" = [
           { class = "^Element$"; }
-          { class = "^Spotify$"; window_role = "spotify"; }
+          { class = "^Spotify$"; window_role = "spotify"; } #xwayland
+          { app_id = "spotify"; } #native via electron flags
         ];
       };
 
@@ -332,7 +333,7 @@ in
       workspaceOutputAssign = let
         f = out: ws: { workspace = ws; output = out; };
       in
-        builtins.map (f "DP-1") ["2" "4"]
+        builtins.map (f "DP-1") ["2"]
         ++ builtins.map (f "HDMI-A-1") ["1" "3" "5" "6" "7" "8" "9"];
       
       window = {
@@ -343,6 +344,9 @@ in
       floating = window // {
         criteria = [
           { title = "Steam - Update News"; }
+          { class = "steam"; title = "Steam Settings"; }
+          { class = "steam"; title = "Friends list"; }
+          { class = "steam"; title = "Add Non-Steam Game"; }
           { app_id = "org.keepassxc.KeePassXC"; }
         ];
       };
