@@ -12,6 +12,14 @@
     btrfs device scan
   '';
 
+  hardware.keyboard.qmk.enable = true;
+
+  environment.systemPackages = with pkgs; [
+    via
+  ];
+  services.udev.packages = [ pkgs.via ];
+
+
   i18n = {
     supportedLocales = [
       "en_US.UTF-8/UTF-8"
