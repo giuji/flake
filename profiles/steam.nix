@@ -16,6 +16,13 @@ in
     };
   };
 
+  services.udev.extraRules = ''
+    SUBSYSTEM=="usb", ATTR{idVendor}=="045e", MODE="0666"
+    SUBSYSTEM=="usb_device", ATTR{idVendor}=="045e", MODE="0666"      
+  '';
+
+  boot.initrd.kernelModules = [ "xpad" ];
+
   programs.steam = {
     enable = true;
     package = pkgs.steam;
