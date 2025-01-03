@@ -13,6 +13,16 @@
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
+  fileSystems."/Archive" = {
+    device = "/dev/disk/by-uuid/7e12f441-0300-4125-91dd-229584f22a62";
+    fsType = "btrfs";
+    options = [
+      "nossd"
+      "nodev"
+      "nosuid"
+    ];
+  };
+
   services.xserver.videoDrivers = lib.mkIf config.services.xserver.enable ["amdgpu"];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
